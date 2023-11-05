@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Task from './Task.jsx'
 import './main.css'
+import './app.sass'
 
 function App() {
     const [tasks, updateTaskSheet] = useState([{title: 'Test',
@@ -57,7 +58,7 @@ function App() {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-6">
-                        <h1 className="title title-h1 text-center"
+                        <h1 className="title title-h1 text-center task-title"
                             contentEditable="true"
                             suppressContentEditableWarning="true"
                             onInput={addProjectName}>{title}</h1>
