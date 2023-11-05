@@ -4,10 +4,12 @@ import Task from './Task.jsx'
 import './main.css'
 
 function App() {
-    const [tasks, updateTaskSheet] = useState([
-        {content: 'Купить хлеб', completed: true, id: '1'},
-        {content: 'Купить хлеб1', completed: false, id: '2'}
-    ]);
+    const [tasks, updateTaskSheet] = useState([{title: 'Test',
+                                                tasksList: [
+                                                        {content: 'Купить хлеб', completed: true, id: '1'},
+                                                        {content: 'Купить хлеб1', completed: false, id: '2'}
+                                                    ]
+                                                }]);
 
     function genID() {
         const min = 10;
@@ -32,27 +34,39 @@ function App() {
         }));
 	}
 
-    let tasksList = tasks.map((task) => <Task
-                                            content={task.content}
-                                            completed={task.completed}
-                                            id={task.id}
-                                            key={task.id}
-                                            delTask={delTask}
-                                            setTaskStatus={setTaskStatus}
-                                        />);
+    function addProjectName(e) {
+        let title = e.target.textContent;
+        let project = tasks;
+        project[0].title = title;
+        updateTaskSheet(project);
+    }
+
+    let title = tasks[0].title;
+
+    // let tasksList = tasks.map((task) => <Task
+    //                                         content={task.content}
+    //                                         completed={task.completed}
+    //                                         id={task.id}
+    //                                         key={task.id}
+    //                                         delTask={delTask}
+    //                                         setTaskStatus={setTaskStatus}
+    //                                     />);
 
     return (
         <>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-6">
-                        <h1 className="title title-h1 text-center">Мои задачи</h1>
+                        <h1 className="title title-h1 text-center"
+                            contentEditable="true"
+                            suppressContentEditableWarning="true"
+                            onInput={addProjectName}>{title}</h1>
                     </div>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-6">
                         <div className="task-list js-task-list">
-                            {tasksList}
+                            {/* {tasksList} */}
                         </div>
                     </div>
                 </div>
