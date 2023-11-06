@@ -6,6 +6,7 @@ import './app.sass'
 
 function App() {
     const [project, updateProject] = useState({title: 'Test',
+                                               description: 'Это первое тестовое описание проекта',
                                                tasksList: [
                                                     {content: 'Купить хлеб', completed: true, id: '1'},
                                                     {content: 'Купить хлеб1', completed: false, id: '2'}
@@ -38,10 +39,10 @@ function App() {
 
     function setTaskStatus(completed, id) {
         let newProject = {...project, tasksList: [
-            ...project.tasksList.map(task => task.id != id ? task : {
-                ...task, completed: !completed
-            })
-        ]};
+                            ...project.tasksList.map(task => task.id != id ? task : {
+                              ...task, completed: !completed
+                            })
+                        ]};
 
         updateProject(newProject);
 	}
@@ -54,8 +55,6 @@ function App() {
 
         updateProject(newProject);
     }
-
-    let title = project.title;
 
     let tasksList = project.tasksList.map((task) => <Task
                                             content={task.content}
@@ -74,7 +73,9 @@ function App() {
                         <h1 className="title title-h1 text-center task-title"
                             contentEditable="true"
                             suppressContentEditableWarning="true"
-                            onInput={addProjectName}>{title}</h1>
+                            onInput={addProjectName}>{project.title}
+                        </h1>
+                        <p className='title mb-30px text-center'>{project.description}</p>
                     </div>
                 </div>
                 <div className="row justify-content-center">
