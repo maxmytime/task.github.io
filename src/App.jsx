@@ -12,31 +12,34 @@ function App() {
                                                     {content: 'Купить хлеб1', completed: false, id: '2'}
                                                ]
                                              });
-
+    // Генерация ID задачи
     function genID() {
         const min = 10;
         const max = 10000000;
         return String(Math.round(Math.random() * (max - min) + min));
     }
 
+    // Добавить задачу
     function addTask(e) {
         e.preventDefault();
 
         let newProject = {...project, tasksList: [
-            ...project.tasksList, {content: '', completed: false, id: genID()}
-        ]};
+                            ...project.tasksList, {content: '', completed: false, id: genID()}
+                        ]};
 
         updateProject(newProject);
     }
 
+    // Удалить задачу
     function delTask(id) {
         let newProject = {...project, tasksList: [
-            ...project.tasksList.filter((task) => task.id != id)
-        ]};
+                            ...project.tasksList.filter((task) => task.id != id)
+                        ]};
 
         updateProject(newProject);
     }
 
+    // Изменить статус задачи выполнена/в работе
     function setTaskStatus(completed, id) {
         let newProject = {...project, tasksList: [
                             ...project.tasksList.map(task => task.id != id ? task : {
@@ -45,8 +48,9 @@ function App() {
                         ]};
 
         updateProject(newProject);
-	}
+    }
 
+    // Добавить имя проекта
     function addProjectName(e) {
         let title = e.target.textContent;
         let newProject = project;
