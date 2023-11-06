@@ -5,12 +5,12 @@ import './main.css'
 import './app.sass'
 
 function App() {
-    const [tasks, updateTaskSheet] = useState([{title: 'Test',
-                                                tasksList: [
-                                                        {content: 'Купить хлеб', completed: true, id: '1'},
-                                                        {content: 'Купить хлеб1', completed: false, id: '2'}
-                                                    ]
-                                                }]);
+    const [project, updateProject] = useState({title: 'Test',
+                                               tasksList: [
+                                                    {content: 'Купить хлеб', completed: true, id: '1'},
+                                                    {content: 'Купить хлеб1', completed: false, id: '2'}
+                                               ]
+                                             });
 
     function genID() {
         const min = 10;
@@ -20,38 +20,51 @@ function App() {
 
     function addTask(e) {
         e.preventDefault();
-        updateTaskSheet([
-            ...tasks, {content: '', completed: false, id: genID()}
-        ]);
+
+        let newProject = {...project, tasksList: [
+            ...project.tasksList, {content: '', completed: false, id: genID()}
+        ]};
+
+        updateProject(newProject);
     }
 
     function delTask(id) {
-        updateTaskSheet(tasks.filter((task) => task.id != id));
+        let newProject = {...project, tasksList: [
+            ...project.tasksList.filter((task) => task.id != id)
+        ]};
+
+        updateProject(newProject);
     }
 
     function setTaskStatus(completed, id) {
-        updateTaskSheet(tasks.map(task => task.id != id ? task : {
-            ...task, completed: !completed
-        }));
+        let newProject = {...project, tasksList: [
+            ...project.tasksList.map(task => task.id != id ? task : {
+                ...task, completed: !completed
+            })
+        ]};
+
+        updateProject(newProject);
 	}
 
     function addProjectName(e) {
         let title = e.target.textContent;
-        let project = tasks;
-        project[0].title = title;
-        updateTaskSheet(project);
+        let newProject = project;
+
+        newProject.title = title;
+
+        updateProject(newProject);
     }
 
-    let title = tasks[0].title;
+    let title = project.title;
 
-    // let tasksList = tasks.map((task) => <Task
-    //                                         content={task.content}
-    //                                         completed={task.completed}
-    //                                         id={task.id}
-    //                                         key={task.id}
-    //                                         delTask={delTask}
-    //                                         setTaskStatus={setTaskStatus}
-    //                                     />);
+    let tasksList = project.tasksList.map((task) => <Task
+                                            content={task.content}
+                                            completed={task.completed}
+                                            id={task.id}
+                                            key={task.id}
+                                            delTask={delTask}
+                                            setTaskStatus={setTaskStatus}
+                                        />);
 
     return (
         <>
@@ -67,7 +80,7 @@ function App() {
                 <div className="row justify-content-center">
                     <div className="col-6">
                         <div className="task-list js-task-list">
-                            {/* {tasksList} */}
+                            {tasksList}
                         </div>
                     </div>
                 </div>
