@@ -12,6 +12,8 @@ function App() {
                                                     {content: 'Купить хлеб1', completed: false, id: '2'}
                                                ]
                                              });
+
+    // Типы задач
     // Генерация ID задачи
     function genID() {
         const min = 10;
