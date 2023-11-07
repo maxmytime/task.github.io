@@ -12,7 +12,7 @@ Task.propTypes = {
 }
 
 function Task({ content, completed, id, delTask, setTaskStatus}) {
-
+    console.log('here');
 
     return (
         <>
