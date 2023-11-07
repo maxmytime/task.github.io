@@ -1,17 +1,21 @@
 // import { React, useState } from 'react'
 import { useState } from 'react';
-import Task from './Task.jsx'
+import TaskCheckbox from './TaskCheckbox.jsx'
+import TaskProgressbar from './TaskProgressbar.jsx'
 import './main.css'
 import './app.sass'
 
 function App() {
-    const [project, updateProject] = useState({title: 'Test',
-                                               description: 'Это первое тестовое описание проекта',
-                                               tasksList: [
-                                                    {content: 'Купить хлеб', completed: true, id: '1'},
-                                                    {content: 'Купить хлеб1', completed: false, id: '2'}
-                                               ]
-                                             });
+    const [project, updateProject] = useState(
+        {title: 'Test',
+        description: 'Это первое тестовое описание проекта',
+        tasksList: [
+            {type: 'checkbox', content: 'Купить хлеб', completed: true, id: '1'},
+            {type: 'checkbox', content: 'Купить хлеб1', completed: false, id: '2'},
+            {type: 'progressbar', content: 'Купить хлеб1', completed: false, id: '3'}
+            ]
+        }
+    );
 
     // Типы задач
     // Генерация ID задачи
@@ -62,7 +66,7 @@ function App() {
         updateProject(newProject);
     }
 
-    let tasksList = project.tasksList.map((task) => <Task
+    let tasksList = project.tasksList.map((task) => <TaskCheckbox
                                             content={task.content}
                                             completed={task.completed}
                                             id={task.id}
@@ -70,6 +74,9 @@ function App() {
                                             delTask={delTask}
                                             setTaskStatus={setTaskStatus}
                                         />);
+
+    let testTask = project.tasksList[2];
+
     return (
         <>
             <div className="container">
@@ -87,6 +94,18 @@ function App() {
                     <div className="col-6">
                         <div className="task-list js-task-list">
                             {tasksList}
+                        </div>
+                        <div className='task-list'>
+                        <TaskProgressbar
+                            content={testTask.content}
+                            completed={testTask.completed}
+                            // id={testTask.id}
+                            key={testTask.id}
+                        />
+                            {/* <div>{testTask.type}</div>
+                            <div>{testTask.content}</div>
+                            <div>{testTask.completed}</div>
+                            <div>{testTask.id}</div> */}
                         </div>
                     </div>
                 </div>
