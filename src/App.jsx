@@ -102,10 +102,6 @@ function App() {
                             // id={testTask.id}
                             key={testTask.id}
                         />
-                            {/* <div>{testTask.type}</div>
-                            <div>{testTask.content}</div>
-                            <div>{testTask.completed}</div>
-                            <div>{testTask.id}</div> */}
                         </div>
                     </div>
                 </div>
